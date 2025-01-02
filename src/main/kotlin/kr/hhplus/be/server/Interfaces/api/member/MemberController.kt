@@ -20,6 +20,7 @@ class MemberController {
     @PostMapping("/{userId}/point")
     fun chargePoint(
         @PathVariable("userId") userId: String,
+        amount: Long
     ): PointResponse {
         if(userId == "error") throw HplusNotfoundException("에러 응답 예시")
         return PointResponse("userId", 1000, LocalDateTime.now())
