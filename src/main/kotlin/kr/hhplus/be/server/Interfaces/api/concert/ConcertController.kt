@@ -1,13 +1,16 @@
 package kr.hhplus.be.server.Interfaces.api.concert
 
 import kr.hhplus.be.server.Interfaces.api.concert.dto.*
+import kr.hhplus.be.server.application.facade.ConcertFacade
 import kr.hhplus.be.server.common.exceptions.HplusNotfoundException
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 
 @RestController
 @RequestMapping("/api/v1/concert")
-class ConcertController {
+class ConcertController (
+    private val concertFacade: ConcertFacade
+) {
 
     @GetMapping("/list")
     fun getConcertList(): List<ConcertResponse>{
@@ -59,12 +62,6 @@ class ConcertController {
         @RequestBody request: ConcertReserveRequest
     ): ConcertReserveResponse {
         if(request.concertDetailId == "error") throw HplusNotfoundException("예약하려는 콘서트 정보를 찾을 수 없습니다")
-        return ConcertReserveResponse(
-            "concertDetailId1",
-            "윤하 콘서트",
-            "userId",
-            "reserveId",
-            LocalDateTime.now()
-        )
+        return concertFacade.reserveConcert(request)
     }
 }
