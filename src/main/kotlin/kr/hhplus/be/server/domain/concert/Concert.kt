@@ -2,6 +2,7 @@ package kr.hhplus.be.server.domain.concert
 
 import jakarta.persistence.*
 import kr.hhplus.be.server.domain.base.BaseEntity
+import kr.hhplus.be.server.domain.queue.Queue
 import java.time.LocalDateTime
 import java.util.*
 
@@ -22,5 +23,10 @@ class Concert(
     val startDate: LocalDateTime,
 
     val endDate: LocalDateTime,
+
+    var status: ConcertStatus = ConcertStatus.IN_PROGRESS,
+
+    @OneToOne(mappedBy = "concert", fetch = FetchType.LAZY)
+    val queue: Queue?
 ) :BaseEntity(){
 }

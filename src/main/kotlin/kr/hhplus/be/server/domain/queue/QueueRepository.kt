@@ -10,4 +10,6 @@ interface QueueRepository {
     fun getByMemberAndConcert(member: Member, concert: Concert): Queue
 
     fun save(queue: Queue): Queue
+
+    fun getQueuesForPolling(size: Int): List<Queue>
 }
